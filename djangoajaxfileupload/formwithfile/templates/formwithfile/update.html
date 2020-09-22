@@ -39,7 +39,8 @@
         <!-- button -->
         <div class="form-input">
             <!-- <label for="button">button</label> -->
-            <input type="submit" class="marg-pad float-right" id="btn" name="btn" value="Submit"/>
+            <input type="submit" class="marg-pad float-left" id="update-btn" name="btn" value="Update"/>
+            <button class="marg-pad float-right" id="delete-btn">Delete</button>
             <div class="clear"></div>
         </div>
 
@@ -50,12 +51,44 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+        $("#username").val("{{ data.username }}")
+        $("#email").val("{{ data.email }}")
+        $("#password").val("{{ data.password }}")
+        $("#file").val("")
+
+
+        $("#delete-btn").click(function(e) {
+            e.preventDefault()
+            const csrfmiddlewaretoken = '{{ csrf_token }}'
+
+            let target = "{% url 'delete' data.id %}"
+
+            $.ajax({
+                data: { csrfmiddlewaretoken },
+                url: target,
+                type: 'POST',
+                success: function() {
+                    window.location.replace("{% url 'read' %}")
+                },
+                error: function(err) {
+                    console.log(err)
+                }
+            });
+        })
+
+
+        $("#update-btn").click(function(e) {
+            e.preventDefault()
+            $("#file-form").trigger("submit")
+        })
+
+
         $("#file-form").on('submit', function(e) {
             e.preventDefault()
-            // console.log(e)
             
             const body = new FormData(this)
-            let target = "{% url 'create' %}"
+            let target = "{% url 'update' data.id %}"
 
             $.ajax({
                 url: target,
@@ -74,5 +107,6 @@
         })
                         
     });
+
 </script>
 {% endblock %}

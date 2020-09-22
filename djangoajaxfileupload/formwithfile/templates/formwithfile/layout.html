@@ -1,0 +1,36 @@
+{% load static %}
+
+<!-- header starts here -->
+<html>
+    <head>
+        <title>Upload file with Ajax in Django - Form</title>
+        <link rel="stylesheet" href="{% static 'formwithfile/index.css' %}">
+    </head>
+    <body>
+        <div class="header">
+            <h1 class="center">{% block heading %} {% endblock %}</h1>
+            <!-- <a class="create-link" id="create_btn" href="{% url 'create' %}">Create</a> -->
+            <a class="create-link" id="create_btn" href="/create">Create</a>
+        </div>
+        <div class="container">
+<!-- header ends here -->
+
+
+<!-- content starts here -->
+{% block content %} {% endblock %}
+<!-- content ends here -->
+
+
+<!-- footer starts here -->
+        </div>
+
+        <script type="text/javascript" src="{% static 'formwithfile/jquery-3.5.1.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'formwithfile/index.js' %}"></script>
+
+
+        <!-- add other scripts here -->
+        {% block other_scripts %} {% endblock %}
+
+    </body>
+</html>
+<!-- footer ends here -->

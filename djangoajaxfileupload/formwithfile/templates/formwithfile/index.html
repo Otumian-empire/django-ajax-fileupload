@@ -1,14 +1,34 @@
+{% extends 'formwithfile/layout.html' %}
+
 {% load static %}
 
-<html>
-    <head>
-        <title>Upload file with Ajax in Django - Content</title>
-        <link rel="stylesheet" href="{% static 'formwithfile/index.css' %}">
-    </head>
-    <body>
-        
-    <script type="text/javascript" src="{% static 'formwithfile/jquery-3.5.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'formwithfile/index.js' %}"></script>
-    </body>
-</html>
+{% block heading %}A simple demo for uploaded file, with username, email and password{% endblock %}
 
+{% block content %} 
+
+    <div class="container">
+        {% for d in data %}
+        <div class="data-container">
+            <!-- div for image -->
+            <div class="float-left">
+                <img class="image center" src="{{ d.file.url|default_if_none:'#' }}" alt="" />
+            </div>
+
+            <!-- div for user and email -->
+            <div class="float-right">
+                <p class="">{{ d.username }}</p>
+                <p class="">{{ d.email }}</p>
+                <p><a class="" href="/update/{{ d.id }}">Update details</a> </p>
+            </div>
+            <div class="clear"></div>
+        </div>
+        {% endfor%}
+        
+    </div>
+{% endblock %}
+
+{% block other_scripts %}
+<script type="text/javascript">
+    
+</script>
+{% endblock %}
